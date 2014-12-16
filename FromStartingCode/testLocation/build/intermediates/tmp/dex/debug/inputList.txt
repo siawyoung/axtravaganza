@@ -1,0 +1,7 @@
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/classes/debug
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bf464df2da6f272993c6d797cb30d272add0119c.jar
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-75b6f7f68726624777c3f08dd6ac5d9d17463e0a.jar
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-3df6aa07165f73866bbd9d7ce912090b12c8381f.jar
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/ejml-0.25-f1c13a3f343dcf086953f4ed537659e919129afc.jar
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-207b5c58e69249db40f6366bb5c3ab18d15e4662.jar
+/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-947a2bc17f846bec0088a0bfb137b46f79ac5ab3.jar
