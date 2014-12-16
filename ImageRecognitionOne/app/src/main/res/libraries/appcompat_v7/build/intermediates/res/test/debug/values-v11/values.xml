@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/build/intermediates/bundles/debug/res/values-v11/values.xml -->
+    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/build/intermediates/bundles/debug/res/values-v11/values.xml -->
     <eat-comment/>
     <style name="Theme.Base" parent="android:Theme.Holo">
         <item name="android:windowNoTitle">true</item>

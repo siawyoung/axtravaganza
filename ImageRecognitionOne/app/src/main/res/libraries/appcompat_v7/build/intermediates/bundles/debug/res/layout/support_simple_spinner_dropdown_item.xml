@@ -22,4 +22,4 @@
           android:singleLine="true"
           android:layout_width="match_parent"
           android:layout_height="?attr/dropdownListPreferredItemHeight"
-          android:ellipsize="marquee"/><!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/layout/support_simple_spinner_dropdown_item.xml -->
+          android:ellipsize="marquee"/><!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/layout/support_simple_spinner_dropdown_item.xml -->

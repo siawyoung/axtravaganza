@@ -86,4 +86,4 @@
               android:layout_toLeftOf="@android:id/icon2"
               android:layout_above="@android:id/text2" />
 
-</RelativeLayout><!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/layout/abc_search_dropdown_item_icons_2line.xml -->
+</RelativeLayout><!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/layout/abc_search_dropdown_item_icons_2line.xml -->

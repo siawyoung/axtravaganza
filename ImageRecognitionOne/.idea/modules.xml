@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ImageRecognitionOne.iml" filepath="$PROJECT_DIR$/ImageRecognitionOne.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/src/main/res/libraries/appcompat_v7/appcompat_v7.iml" filepath="$PROJECT_DIR$/app/src/main/res/libraries/appcompat_v7/appcompat_v7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/src/main/res/libraries/opencv library - 2.4.9/opencv library - 2.4.9.iml" filepath="$PROJECT_DIR$/app/src/main/res/libraries/opencv library - 2.4.9/opencv library - 2.4.9.iml" />
     </modules>
   </component>
 </project>

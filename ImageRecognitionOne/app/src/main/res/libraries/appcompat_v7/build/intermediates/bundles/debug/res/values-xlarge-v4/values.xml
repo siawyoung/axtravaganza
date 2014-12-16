@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/values-xlarge/bools.xml -->
+    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/values-xlarge/bools.xml -->
     <eat-comment/>
     <bool name="abc_action_bar_expanded_action_views_exclusive">false</bool>
-    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/values-xlarge/dimens.xml -->
+    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/values-xlarge/dimens.xml -->
     <eat-comment/>
     <dimen name="abc_action_bar_default_height">56dip</dimen>
     <dimen name="abc_action_bar_icon_vertical_padding">4dip</dimen>

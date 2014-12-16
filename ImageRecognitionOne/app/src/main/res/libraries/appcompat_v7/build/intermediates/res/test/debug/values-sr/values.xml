@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Travel/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/build/intermediates/bundles/debug/res/values-sr/values.xml -->
+    <!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/build/intermediates/bundles/debug/res/values-sr/values.xml -->
     <eat-comment/>
     <string msgid="4600421777120114993" name="abc_action_bar_home_description">"Одлазак на Почетну"</string>
     <string msgid="1594238315039666878" name="abc_action_bar_up_description">"Кретање нагоре"</string>

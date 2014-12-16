@@ -19,4 +19,4 @@
         android:id="@+id/expanded_menu"
         android:layout_width="?attr/panelMenuListWidth"
         android:layout_height="wrap_content"/>
-<!-- From: file:/C:/OpenCV4Android/OpenCV-2.4.9-android-sdk/samples/appcompat_v7/res/layout/abc_expanded_menu_layout.xml -->
+<!-- From: file:/Users/JiaHao/Dropbox/Projects/Android/1D%20Directory/axtravaganza/ImageRecognitionOne/app/src/main/res/libraries/appcompat_v7/res/layout/abc_expanded_menu_layout.xml -->
