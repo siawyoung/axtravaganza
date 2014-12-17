@@ -237,11 +237,11 @@ int drawable abc_textfield_searchview_holo_light 0x7f020054
 int drawable abc_textfield_searchview_right_holo_dark 0x7f020055
 int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable ic_launcher 0x7f020057
-int id Button_compare 0x7f080049
-int id Button_take_again 0x7f080048
+int id Button_compare 0x7f080048
+int id Button_take_again 0x7f080047
 int id CompareResult 0x7f080041
-int id LinearLayout1 0x7f080045
-int id Text2 0x7f080047
+int id LinearLayout1 0x7f080044
+int id Text2 0x7f080046
 int id action_bar 0x7f08001f
 int id action_bar_activity_content 0x7f080000
 int id action_bar_container 0x7f08001e
@@ -253,7 +253,7 @@ int id action_context_bar 0x7f080020
 int id action_menu_divider 0x7f080001
 int id action_menu_presenter 0x7f080002
 int id action_mode_close_button 0x7f080027
-int id action_settings 0x7f08004b
+int id action_settings 0x7f08004a
 int id activity_chooser_view_content 0x7f080028
 int id always 0x7f080016
 int id any 0x7f08000f
@@ -277,9 +277,9 @@ int id homeAsUp 0x7f08000a
 int id icon 0x7f08002d
 int id ifRoom 0x7f080018
 int id image 0x7f08002a
-int id imageView1 0x7f080043
-int id imageView2 0x7f080046
-int id layout_take_picture 0x7f08004a
+int id imageView1 0x7f080042
+int id imageView2 0x7f080045
+int id layout_take_picture 0x7f080049
 int id listMode 0x7f080006
 int id list_item 0x7f08002c
 int id middle 0x7f080014
@@ -306,8 +306,7 @@ int id showTitle 0x7f08000d
 int id split_action_bar 0x7f080021
 int id submit_area 0x7f08003c
 int id tabMode 0x7f080008
-int id takePicture 0x7f080044
-int id testTextView 0x7f080042
+int id takePicture 0x7f080043
 int id title 0x7f08002e
 int id top_action_bar 0x7f080023
 int id up 0x7f080024

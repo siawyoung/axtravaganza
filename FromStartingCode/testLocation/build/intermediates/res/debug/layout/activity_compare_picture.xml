@@ -30,18 +30,6 @@
     android:id="@+id/CompareResult"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
-
-    <!--These two widgets added by Jiahao to test stuff-->
-    <TextView
-        android:id="@+id/testTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/TestLabelText"/>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick=""
-        android:text="@string/runOpenCvTestString"/>
     
 
 </LinearLayout>
