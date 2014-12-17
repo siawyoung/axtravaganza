@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Random;
 
@@ -91,9 +92,47 @@ public class ComparePicture extends ActionBarActivity {
 
         // get the match coordinate
         for (int i = 0; i < match.size(); i++){
+
             DMatch match_idx = match.get(i);
+
+//            int a = match_idx.queryIdx;
+//            int b = match_idx.trainIdx;
+//            Log.d("MatchObject", "a, b = " + a + ", " + b);
+
             arraylist1.add(list1.get(match_idx.queryIdx).pt);
             arraylist2.add(list2.get(match_idx.trainIdx).pt);
+        }
+    }
+
+    /**
+     * DO NOT USE THIS.
+     *
+     * Java method to extract the match coordinates.
+     * The only change here is the datatype of param matches from MatOfDMatch to
+     * ArrayList<Integer[]>
+     *
+     * Rationale is that MatOfDMatch is a matrix with unnecessary data. The pure informations for
+     * match_idx.queryIdx and match_idx.trainIdx needs to be coded into int[0] and int[1] for each
+     * element into the matches ArrayList<>
+     *
+     * * @param kp1 SIFT keypoint in the first image
+     * @param kp2 SIFT keypoint in the second image
+     * @param matches match index of 2 images
+     * @param arraylist1 coordinates of matched points in the first image
+     * @param arraylist2 coordinates of matched points in the second image
+     */
+    private void javaExtractMatchCoordinate(MatOfKeyPoint kp1, MatOfKeyPoint kp2, ArrayList<Integer[]> matches, ArrayList<Point> arraylist1, ArrayList<Point> arraylist2){
+        List<KeyPoint> list1 = kp1.toList();
+        List<KeyPoint> list2 = kp2.toList();
+
+
+        for(Integer[] row: matches) {
+
+            int a = row[0];
+            int b = row[1];
+//            Log.d("MatchObject", "a, b = " + a + ", " + b);
+            arraylist1.add(list1.get(a).pt);
+            arraylist2.add(list2.get(b).pt);
         }
     }
 
@@ -356,19 +395,18 @@ public class ComparePicture extends ActionBarActivity {
         Log.i("Compare data name:", compareFileData.getAbsolutePath());
         // load keypoints and descriptors for a database image
         getKeypointAndDescriptor(compareFileData.getAbsolutePath(), keypoints_compare.getNativeObjAddr(), descriptors_compare.getNativeObjAddr());
+
         // match the two descriptors
 
         // JNI implementation of getMatch
-        //public static native void getMATCH(long addrDescriptor1, long addrDescriptor2, long addrMatch);
-        getMATCH(descriptors_query.getNativeObjAddr(), descriptors_compare.getNativeObjAddr(), matches.getNativeObjAddr());
-        Log.d("descriptorsQuery", descriptors_query.toString());
-        Log.d("descriptorsCompare", descriptors_compare.toString());
-        Log.d("matches", matches.toString());
-
-//        getMatchJava(descriptors_query, descriptors_compare, matches);
-
+//        getMATCH(descriptors_query.getNativeObjAddr(), descriptors_compare.getNativeObjAddr(), matches.getNativeObjAddr());
         // extract the needed coordinate
         extractMatchCoordinate(keypoints_query, keypoints_compare, matches, coordinate_query, coordinate_compare);
+
+        // Java Implementation of getMatch. Takes forever, USE ONLY FOR SUBMISSION
+        ArrayList<Integer[]> matchesArrayList = getMatchJava(descriptors_query, descriptors_compare);
+        javaExtractMatchCoordinate(keypoints_query, keypoints_compare, matchesArrayList, coordinate_query, coordinate_compare);
+
         // using RANSAC to compare the two matched keypoints
         numberOfCorrectCorrespondence = RANSAC_match(coordinate_query, coordinate_compare, maxIteration);
 
@@ -398,20 +436,122 @@ public class ComparePicture extends ActionBarActivity {
     }
 
     /**
-     * Takes addressDescriptors of OpenCV Mat data types, and mutates MatOfDMatch addrMatch
-     * with the result
-     * @param addrDescriptor1
-     * @param addrDescriptor2
-     * @param addrMatch
+     * Method to Log.d an OpenCV Mat data type
+     * @param matches
      */
-    private void getMatchJava(Mat addrDescriptor1, Mat addrDescriptor2, MatOfDMatch addrMatch) {
+    private void printMat(Mat matches) {
+        Log.d("matches", matches.toString());
+
+        for (int j = 0; j < matches.rows(); j++) {
+//            Mat row = matches.row(j);
+
+            for (int k = 0; k < matches.cols(); k++) {
+                double[] element = matches.get(j,k);
+
+                Log.d("matches", "row, column: "+ j + ", " + k + " = " + Arrays.toString(element));
+            }
+        }
+    }
+
+    /*** Takes addressDescriptors of OpenCV Mat data types, and mutates MatOfDMatch addrMatch
+     * with the result
+     *
+     * Takes almost 2 minutes to complete, as compared to ~2 seconds for the JNI function
+     * @param a Query descriptor
+     * @param b Compare descriptor
+     * @return Arraylist of set of correspondence
+     */
+    private ArrayList<Integer[]> getMatchJava(Mat a, Mat b) {
+
+        // Given the descriptor set I of the input image i, descriptor set K of the
+        // database image k
+        // For each descriptor pi in I
+
+            // Find pk1 in K such that distance(pi, pk1) is the smallest for all descriptor in K
+
+            // Find pk2 in K such that distance(pi, pk2) is the second smallest for all descriptor
+            // in k
+
+        // If distance (pi, pk1) < threshold * distance(pi, pk2)
+        // Threshold about 0.6 to 0.7
+        // Form a correspondence c = (pi, pk1)
+        // Add c into the set of correspondence (for the database image K)
+        // Find smallest and second smallest descriptor and index
+
+        double threshold = 0.7;
+        ArrayList<Integer[]> result = new ArrayList<Integer[]>();
+
+        for (int i = 0; i < a.rows(); i++) {
+
+            // Smallest at 0, second smallest at 1
+            double[] smallestRowDistance = {Double.MAX_VALUE, Double.MAX_VALUE};
+            int[] smallestRowIndex = new int[2];
+
+            Mat rowA = a.row(i);
+            for (int j = 0; j < b.rows(); j++) {
+                Mat rowB = b.row(j);
+
+                double distanceAB = this.getEuclidianDistance(rowA, rowB);
+
+                // Check if smallest
+                if (distanceAB < smallestRowDistance[0]) {
+                    // Displace previous smallest into second smallest index
+                    double previousSmallestDistance = smallestRowDistance[0];
+                    int previousSmallestIndex = smallestRowIndex[0];
+                    smallestRowDistance[1] = previousSmallestDistance;
+                    smallestRowIndex[1] = previousSmallestIndex;
+
+                    // Replace previous smallest
+                    smallestRowDistance[0] = distanceAB;
+                    smallestRowIndex[0] = j;
+
+                } else if (distanceAB < smallestRowDistance[1]) {
+                    // Check if second smallest
+                    smallestRowDistance[1] = distanceAB;
+                    smallestRowIndex[1] = j;
+                }
+            }
+
+            if (smallestRowDistance[0] < threshold * smallestRowDistance[1]) {
+                // Form a correspondence c = (pi, pk1)
+                // Add c into the set of correspondence (for the database image K)
+                // Find smallest and second smallest descriptor and index
+
+                Integer[] c = {i, smallestRowIndex[0]};
+                result.add(c);
 
 
 
-
+            }
+        }
+        return result;
 
     }
 
+    /**
+     * Gets the euclidian distance
+     * Helper method for java getMatch()
+     * @param rowA
+     * @param rowB
+     * @return
+     */
+    private double getEuclidianDistance(Mat rowA, Mat rowB) {
+
+        if (rowA.cols() != rowB.cols()) {
+            throw new ArithmeticException("rowA.cols() != rowB.cols() in getEuclidianDistance()");
+        }
+
+        int columnSize = rowA.cols(); // should be 128
+        double beforeSqrt = 0;
+        for (int i = 0; i < columnSize; i++) {
+            // Each row is a double[] of length 1
+            double a = rowA.get(0,i)[0];
+            double b = rowB.get(0,i)[0];
+            beforeSqrt += Math.pow(b - a, 2);
+        }
+
+        return Math.sqrt(beforeSqrt);
+    }
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
