@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.ejml.simple.SimpleMatrix;
 import org.ejml.simple.SimpleSVD;
@@ -215,14 +216,86 @@ public class ComparePicture extends ActionBarActivity {
 
     // using RANSAC to compare the two matched keypoints
     /**
-     * Method for apply RANSAC
+     * Method for to apply RANSAC
      * @param AL1 coordinate list of matched points in the first image
      * @param AL2 coordinate list of matched points in the second image
      * @param maxTime number of iteration times
      * @return number of match after RANSAC
      */
     int RANSAC_match(ArrayList<Point> AL1, ArrayList<Point> AL2, int maxTime){
-        return 0;
+
+        ArrayList<double[]> AL1array = convertPointsToArrays(AL1);
+        ArrayList<double[]> AL2array = convertPointsToArrays(AL2);
+
+        int numberOfChosenPoints = 0;
+        int maxScore = 0;
+
+        double[][] geoTransMat = null;
+
+        for(int i = 0; i < maxTime; i++) {
+            int score = 0;
+            int[] chosenPoints = randomInts(AL1.size());
+
+            ArrayList<double[]> chosenAL1 = new ArrayList<double[]>();
+            ArrayList<double[]> chosenAL2 = new ArrayList<double[]>();
+
+            for (int cP : chosenPoints) {
+                chosenAL1.add(AL1array.get(cP));
+                chosenAL2.add(AL2array.get(cP));
+            }
+
+            double[][] AL1Matrix = convertListToMatrix(chosenAL1);
+            double[][] AL2Matrix = convertListToMatrix(chosenAL2);
+
+            geoTransMat = estimateGeoTransMat(chosenPoints.length, AL1Matrix, AL2Matrix);
+
+            for (int j = 0; j < chosenAL1.size(); j++) {
+                if (Arrays.equals(matrix_product(geoTransMat,
+                        oneDtwoD(chosenAL1.get(i), chosenAL1.get(i).length, 1))
+                        , oneDtwoD(chosenAL2.get(i), chosenAL2.get(i).length, 1))) {
+                    score++;
+
+                }
+            }
+
+            if (score > maxScore) {
+                maxScore = score;
+            }
+        }
+        return maxScore;
+    }
+
+    /**
+     * Converts an ArrayList of Points to matrices
+     * @param AL
+     * @return
+     */
+    ArrayList<double[]> convertPointsToArrays(ArrayList<Point> AL){
+        ArrayList<double[]> matrixList = new ArrayList<double[]>();
+        for (Point p : AL){
+            double[] newMat = {p.x, p.y, 1};
+            matrixList.add(newMat);
+        }
+        return matrixList;
+    }
+
+    double[][] convertListToMatrix(ArrayList<double[]> pointList){
+        double[][] pointMatrix = new double[pointList.size()][3];
+        for(int i = 0; i < pointList.size(); i++){
+            pointMatrix[0][i] = pointList.get(i)[0];
+            pointMatrix[1][i] = pointList.get(i)[1];
+            pointMatrix[2][i] = pointList.get(i)[2];
+        }
+        return pointMatrix;
+    }
+    int[] randomInts (int arrayLength){
+        int[] ints = new int[new Random().nextInt(arrayLength / 2) + arrayLength / 2];
+
+        for(int i = 0; i < ints.length; i++){
+            ints[i] = new Random().nextInt(arrayLength);
+        }
+
+        return ints;
     }
 
 
@@ -284,7 +357,16 @@ public class ComparePicture extends ActionBarActivity {
         // load keypoints and descriptors for a database image
         getKeypointAndDescriptor(compareFileData.getAbsolutePath(), keypoints_compare.getNativeObjAddr(), descriptors_compare.getNativeObjAddr());
         // match the two descriptors
+
+        // JNI implementation of getMatch
+        //public static native void getMATCH(long addrDescriptor1, long addrDescriptor2, long addrMatch);
         getMATCH(descriptors_query.getNativeObjAddr(), descriptors_compare.getNativeObjAddr(), matches.getNativeObjAddr());
+        Log.d("descriptorsQuery", descriptors_query.toString());
+        Log.d("descriptorsCompare", descriptors_compare.toString());
+        Log.d("matches", matches.toString());
+
+//        getMatchJava(descriptors_query, descriptors_compare, matches);
+
         // extract the needed coordinate
         extractMatchCoordinate(keypoints_query, keypoints_compare, matches, coordinate_query, coordinate_compare);
         // using RANSAC to compare the two matched keypoints
@@ -315,6 +397,21 @@ public class ComparePicture extends ActionBarActivity {
         textView.setText(result_text);
     }
 
+    /**
+     * Takes addressDescriptors of OpenCV Mat data types, and mutates MatOfDMatch addrMatch
+     * with the result
+     * @param addrDescriptor1
+     * @param addrDescriptor2
+     * @param addrMatch
+     */
+    private void getMatchJava(Mat addrDescriptor1, Mat addrDescriptor2, MatOfDMatch addrMatch) {
+
+
+
+
+
+    }
+
     /* (non-Javadoc)
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
@@ -339,7 +436,8 @@ public class ComparePicture extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-	
+
+
 	/*JNI functions
 	 * we use this to call functions inside jni folder
 	 */
