@@ -133,11 +133,7 @@ public class ComparePicture extends ActionBarActivity {
             throw new IllegalArgumentException("A:Rows: " + aColumns + " did not match B:Columns " + bRows + ".");
         }
         double[][] C = new double[aRows][bColumns];
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                C[i][j] = 0.00000;
-            }
-        }
+
         for (int i = 0; i < aRows; i++) { // aRow
             for (int j = 0; j < bColumns; j++) { // bColumn
                 for (int k = 0; k < aColumns; k++) { // aColumn
@@ -223,6 +219,8 @@ public class ComparePicture extends ActionBarActivity {
      * @return number of match after RANSAC
      */
     int RANSAC_match(ArrayList<Point> AL1, ArrayList<Point> AL2, int maxTime){
+        if(AL1.isEmpty() || AL2.isEmpty())
+            return 0;
 
         ArrayList<double[]> AL1array = convertPointsToArrays(AL1);
         ArrayList<double[]> AL2array = convertPointsToArrays(AL2);
@@ -248,14 +246,22 @@ public class ComparePicture extends ActionBarActivity {
             double[][] AL2Matrix = convertListToMatrix(chosenAL2);
 
             geoTransMat = estimateGeoTransMat(chosenPoints.length, AL1Matrix, AL2Matrix);
+            double constDist = 0;
 
             for (int j = 0; j < chosenAL1.size(); j++) {
-                if (Arrays.equals(matrix_product(geoTransMat,
-                        oneDtwoD(chosenAL1.get(i), chosenAL1.get(i).length, 1))
-                        , oneDtwoD(chosenAL2.get(i), chosenAL2.get(i).length, 1))) {
-                    score++;
+                constDist += euclideanDistance(matrix_product(geoTransMat,
+                        oneDtwoD(chosenAL1.get(j), chosenAL1.get(j).length, 1))
+                        , oneDtwoD(chosenAL2.get(j), chosenAL2.get(j).length, 1));
+            }
 
-                }
+            constDist /= chosenAL1.size();
+
+            for (int j = 0; j < chosenAL1.size(); j++) {
+                double thisDist = euclideanDistance(matrix_product(geoTransMat,
+                        oneDtwoD(chosenAL1.get(j), chosenAL1.get(j).length, 1))
+                        , oneDtwoD(chosenAL2.get(j), chosenAL2.get(j).length, 1));
+                if (Math.abs(thisDist - constDist) < thresh)
+                    score++;
             }
 
             if (score > maxScore) {
@@ -264,7 +270,10 @@ public class ComparePicture extends ActionBarActivity {
         }
         return maxScore;
     }
-
+    double euclideanDistance(double[][] vector1, double[][] vector2){
+        return Math.sqrt(Math.pow(vector1[0][0] - vector2[0][0], 2) + Math.pow(vector1[1][0]
+                - vector2[1][0], 2) + Math.pow(vector1[2][0] - vector2[2][0], 2));
+    }
     /**
      * Converts an ArrayList of Points to matrices
      * @param AL
@@ -280,7 +289,7 @@ public class ComparePicture extends ActionBarActivity {
     }
 
     double[][] convertListToMatrix(ArrayList<double[]> pointList){
-        double[][] pointMatrix = new double[pointList.size()][3];
+        double[][] pointMatrix = new double[3][pointList.size()];
         for(int i = 0; i < pointList.size(); i++){
             pointMatrix[0][i] = pointList.get(i)[0];
             pointMatrix[1][i] = pointList.get(i)[1];
@@ -289,16 +298,31 @@ public class ComparePicture extends ActionBarActivity {
         return pointMatrix;
     }
     int[] randomInts (int arrayLength){
-        int[] ints = new int[new Random().nextInt(arrayLength / 2) + arrayLength / 2];
+        try {
+            int[] ints = new int[new Random().nextInt(arrayLength / 2) + arrayLength / 2];
 
-        for(int i = 0; i < ints.length; i++){
-            ints[i] = new Random().nextInt(arrayLength);
+            for (int i = 0; i < ints.length; i++) {
+                ints[i] = new Random().nextInt(arrayLength);
+            }
+            return ints;
+        }catch(IllegalArgumentException e){
+         Log.d("GASP", e.toString());
+         int[] ret = {0};
+         return ret;
         }
-
-        return ints;
     }
 
-
+    protected int findMax(double[] inArr){
+        double max = inArr[0];
+        int maxIndex = -1;
+        for (int i = 0; i < inArr.length; i++){
+            if(inArr[i] > max ) {
+                max = inArr[i];
+                maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
     /* (non-Javadoc)
      * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
      */
@@ -340,61 +364,78 @@ public class ComparePicture extends ActionBarActivity {
         // string to show the compare result
         String result_text = "Compare result:\n";
 
+        double scores[] = new double[12];
+        double querySize[] = new double[12];
+
         // ONLY COMPARE WITH IMAGE 7, for testing
-        int i = 7;	// compare with database image 7
-        int numberOfCorrectCorrespondence = 0;
+        for(int i = 1; i <= 11; i ++) {    // compare with database image 7
+            int numberOfCorrectCorrespondence = 0;
+            // get new arraylist to store the matched coordinates
+            ArrayList<Point> coordinate_query = new ArrayList<Point>();
+            ArrayList<Point> coordinate_compare = new ArrayList<Point>();
 
+            // get single image descriptors
+            // by directly loading the data file
+            String compareNameData = "image_data" + String.valueOf(i) + FILE_TYPE_DATA;
+            File compareFileData = new File(comparePath, compareNameData);
+            Log.i("Compare data name:", compareFileData.getAbsolutePath());
+            // load keypoints and descriptors for a database image
+            getKeypointAndDescriptor(compareFileData.getAbsolutePath(), keypoints_compare.getNativeObjAddr(), descriptors_compare.getNativeObjAddr());
+            // match the two descriptors
 
-        // get new arraylist to store the matched coordinates
-        ArrayList<Point> coordinate_query = new ArrayList<Point>();
-        ArrayList<Point> coordinate_compare = new ArrayList<Point>();
-
-        // get single image descriptors
-        // by directly loading the data file
-        String compareNameData = "image_data" + String.valueOf(i) + FILE_TYPE_DATA;
-        File compareFileData = new File(comparePath, compareNameData);
-        Log.i("Compare data name:", compareFileData.getAbsolutePath());
-        // load keypoints and descriptors for a database image
-        getKeypointAndDescriptor(compareFileData.getAbsolutePath(), keypoints_compare.getNativeObjAddr(), descriptors_compare.getNativeObjAddr());
-        // match the two descriptors
-
-        // JNI implementation of getMatch
-        //public static native void getMATCH(long addrDescriptor1, long addrDescriptor2, long addrMatch);
-        getMATCH(descriptors_query.getNativeObjAddr(), descriptors_compare.getNativeObjAddr(), matches.getNativeObjAddr());
-        Log.d("descriptorsQuery", descriptors_query.toString());
-        Log.d("descriptorsCompare", descriptors_compare.toString());
-        Log.d("matches", matches.toString());
+            // JNI implementation of getMatch
+            //public static native void getMATCH(long addrDescriptor1, long addrDescriptor2, long addrMatch);
+            getMATCH(descriptors_query.getNativeObjAddr(), descriptors_compare.getNativeObjAddr(), matches.getNativeObjAddr());
+            Log.d("descriptorsQuery", descriptors_query.toString());
+            Log.d("descriptorsCompare", descriptors_compare.toString());
+            Log.d("matches", matches.toString());
 
 //        getMatchJava(descriptors_query, descriptors_compare, matches);
 
-        // extract the needed coordinate
-        extractMatchCoordinate(keypoints_query, keypoints_compare, matches, coordinate_query, coordinate_compare);
-        // using RANSAC to compare the two matched keypoints
-        numberOfCorrectCorrespondence = RANSAC_match(coordinate_query, coordinate_compare, maxIteration);
+            // extract the needed coordinate
+            extractMatchCoordinate(keypoints_query, keypoints_compare, matches, coordinate_query, coordinate_compare);
+            // using RANSAC to compare the two matched keypoints
+            Log.d("coordinate_query", coordinate_query.toString());
+            Log.d("coordinate_compare", coordinate_compare.toString());
 
-        Log.d("TestLog", "numberOfCorrectCorrespondence: " + numberOfCorrectCorrespondence);
-        Log.d("TestLog", "query: " + coordinate_query.size());
-        Log.d("TestLog", "database: " + coordinate_compare.size());
+           numberOfCorrectCorrespondence = RANSAC_match(coordinate_query, coordinate_compare, maxIteration);
+           scores[i] = numberOfCorrectCorrespondence;
+           querySize[i] = coordinate_query.size();
 
-        // add the result to result text
-        result_text = result_text + "Image" + Integer.toString(i) + ":	" + Integer.toString(numberOfCorrectCorrespondence) + "/" + Integer.toString(coordinate_query.size()) + "\n";
+            Log.d("TestLog", "numberOfCorrectCorrespondence: " + numberOfCorrectCorrespondence);
+            Log.d("TestLog", "query: " + coordinate_query.size());
+            Log.d("TestLog", "database: " + coordinate_compare.size());
 
 
-        // show the two images
-        final Options options = new Options();
-        // show query image
-        matchImageBitmap = BitmapFactory.decodeFile(queryFile.getAbsolutePath(), options);
-        imageView1.setImageBitmap(matchImageBitmap);
-        imageView1.setVisibility(View.VISIBLE);
-        // show match image
-        String matchName = String.valueOf(i) + FILE_TYPE;
-        File matchFile = new File(comparePath, matchName);
-        matchImageBitmap = BitmapFactory.decodeFile(matchFile.getAbsolutePath(), options);
-        imageView2.setImageBitmap(matchImageBitmap);
-        imageView2.setVisibility(View.VISIBLE);
+        }
+        int match = findMax(scores);
+        int numberOfCorrectCorrespondence = (int) scores[match];
+        int coordinate_query = (int) querySize[match];
 
-        // show the match result for all dataset images
-        textView.setText(result_text);
+        if (coordinate_query > 50) {
+
+            // add the result to result text
+            result_text = result_text + "Image" + Integer.toString(match) + ":	" + Integer.toString(numberOfCorrectCorrespondence) + "/" + Integer.toString(coordinate_query) + "\n";
+
+            // show the two images
+            final Options options = new Options();
+            // show query image
+            matchImageBitmap = BitmapFactory.decodeFile(queryFile.getAbsolutePath(), options);
+            imageView1.setImageBitmap(matchImageBitmap);
+            imageView1.setVisibility(View.VISIBLE);
+            // show match image
+            String matchName = String.valueOf(match) + FILE_TYPE;
+            File matchFile = new File(comparePath, matchName);
+            matchImageBitmap = BitmapFactory.decodeFile(matchFile.getAbsolutePath(), options);
+            imageView2.setImageBitmap(matchImageBitmap);
+            imageView2.setVisibility(View.VISIBLE);
+
+            // show the match result for all dataset images
+            textView.setText(result_text);
+        }
+        else{
+            textView.setText("FAIL");
+        }
     }
 
     /**
