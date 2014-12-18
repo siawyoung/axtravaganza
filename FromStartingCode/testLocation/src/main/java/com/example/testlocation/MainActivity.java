@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +32,7 @@ import android.widget.Button;
  * 
  *
  */
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 	
 	private static final int ACTION_TAKE_PHOTO_B = 1;
 	
@@ -120,6 +121,8 @@ public class MainActivity extends ActionBarActivity {
 		Button picBtn = (Button) findViewById(R.id.takePicture);
 		setBtnListenerOrDisable(picBtn, mTakePicOnClickListener,MediaStore.ACTION_IMAGE_CAPTURE);
 
+
+        dispatchTakePictureIntent(ACTION_TAKE_PHOTO_B);
     }
 
 

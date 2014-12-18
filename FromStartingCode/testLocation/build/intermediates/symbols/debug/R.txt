@@ -239,7 +239,7 @@ int drawable abc_textfield_searchview_right_holo_light 0x7f020056
 int drawable ic_launcher 0x7f020057
 int id Button_compare 0x7f080048
 int id Button_take_again 0x7f080047
-int id CompareResult 0x7f080041
+int id CompareResult 0x7f08003f
 int id LinearLayout1 0x7f080044
 int id Text2 0x7f080046
 int id action_bar 0x7f08001f
@@ -261,8 +261,8 @@ int id back 0x7f080010
 int id beginning 0x7f080012
 int id checkbox 0x7f080030
 int id collapseActionView 0x7f080017
-int id compareImageView1 0x7f08003f
-int id compareImageView2 0x7f080040
+int id compareImageView1 0x7f080040
+int id compareImageView2 0x7f080041
 int id default_activity_button 0x7f08002b
 int id dialog 0x7f08001b
 int id disableHome 0x7f080009

@@ -844,7 +844,7 @@ containing a value of this type.
     public static final class id {
         public static final int Button_compare=0x7f080048;
         public static final int Button_take_again=0x7f080047;
-        public static final int CompareResult=0x7f080041;
+        public static final int CompareResult=0x7f08003f;
         public static final int LinearLayout1=0x7f080044;
         public static final int Text2=0x7f080046;
         public static final int action_bar=0x7f08001f;
@@ -866,8 +866,8 @@ containing a value of this type.
         public static final int beginning=0x7f080012;
         public static final int checkbox=0x7f080030;
         public static final int collapseActionView=0x7f080017;
-        public static final int compareImageView1=0x7f08003f;
-        public static final int compareImageView2=0x7f080040;
+        public static final int compareImageView1=0x7f080040;
+        public static final int compareImageView2=0x7f080041;
         public static final int default_activity_button=0x7f08002b;
         public static final int dialog=0x7f08001b;
         public static final int disableHome=0x7f080009;

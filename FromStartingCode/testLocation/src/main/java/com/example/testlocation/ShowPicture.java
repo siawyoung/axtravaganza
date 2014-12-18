@@ -102,6 +102,8 @@ public class ShowPicture extends ActionBarActivity {
 				Intent turnToShowPicture = new Intent();
 				turnToShowPicture.setClass(ShowPicture.this, ShowPicture.class);
 				ShowPicture.this.startActivity(turnToShowPicture);
+
+
 				break;
 			}
 
@@ -198,6 +200,9 @@ public class ShowPicture extends ActionBarActivity {
 		//when press getLocation button
 		Button locBtn = (Button) findViewById(R.id.Button_compare);
 		locBtn.setOnClickListener(locPicOnClickListener);
+
+        // Added to make it immediately go to locate picture
+        locatePictureIntent();
 	}
 
 	@Override

@@ -18,7 +18,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="com.example.testlocation.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -44,7 +45,8 @@
         <activity
             android:name="com.example.testlocation.ComparePicture"
             android:label="@string/title_activity_compare_picture"
-            android:parentActivityName="com.example.testlocation.MainActivity" >
+            android:parentActivityName="com.example.testlocation.MainActivity"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.testlocation.MainActivity" />

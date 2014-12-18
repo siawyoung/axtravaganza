@@ -18,6 +18,7 @@ import org.opencv.core.Point;
 import org.opencv.features2d.DMatch;
 import org.opencv.features2d.KeyPoint;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,7 +39,7 @@ import android.widget.TextView;
  *
  *
  */
-public class ComparePicture extends ActionBarActivity {
+public class ComparePicture extends Activity {
     // load the .so file for SIFT model
     static
     {
@@ -500,7 +501,8 @@ public class ComparePicture extends ActionBarActivity {
             
         }
         else{
-            textView.setText("FAIL");
+            textView.setText("Cannot match image, please try again.");
+
         }
     }
 
