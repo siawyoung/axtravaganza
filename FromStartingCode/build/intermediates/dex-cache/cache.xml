@@ -2,46 +2,46 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\classes.jar"
+        jar="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="8694693636ab36910c8100ce527c258ff3ebece0">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\classes-65e2066af0675dd6b6172312031949d51847c62b.jar" />
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-947a2bc17f846bec0088a0bfb137b46f79ac5ab3.jar" />
     </item>
     <item
-        jar="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\exploded-aar\com.android.support\appcompat-v7\20.0.0\classes.jar"
+        jar="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/exploded-aar/FromStartingCode/openCVLibrary249/unspecified/classes.jar"
         jumboMode="false"
         revision="21.1.1"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\classes-25db53f984b9d584608de6e1ae3eb2a9242c3918.jar" />
+        sha1="3e5cb8a7357e9a8f3dd9afc35d085fdd0dcc34a2">
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-3df6aa07165f73866bbd9d7ce912090b12c8381f.jar" />
     </item>
     <item
-        jar="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\myDependencies\ejml-0.25.jar"
+        jar="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/myDependencies/ejml-0.25.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="66941dca76c9581e9ffb4e0bc50683876bd010bc">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\ejml-0.25-b050eb5d54ee7b2c72039f895b5807b9e281d75a.jar" />
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/ejml-0.25-f1c13a3f343dcf086953f4ed537659e919129afc.jar" />
     </item>
     <item
-        jar="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\exploded-aar\com.android.support\support-v4\20.0.0\libs\internal_impl-20.0.0.jar"
+        jar="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="21.1.1"
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/classes-207b5c58e69249db40f6366bb5c3ab18d15e4662.jar" />
+    </item>
+    <item
+        jar="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\internal_impl-20.0.0-ada68826f789db5daf142df9f1601218cc7f3c63.jar" />
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-75b6f7f68726624777c3f08dd6ac5d9d17463e0a.jar" />
     </item>
     <item
-        jar="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\exploded-aar\FromStartingCode\openCVLibrary249\unspecified\classes.jar"
-        jumboMode="false"
-        revision="21.1.1"
-        sha1="6d344328d8f1c8fa35161457029fc6ec4935cd40">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\classes-3c43517bf4e8245ce8926faa01aad80794ed7f7e.jar" />
-    </item>
-    <item
-        jar="C:\Users\tes\AppData\Local\Android\android-sdk\extras\android\m2repository\com\android\support\support-annotations\20.0.0\support-annotations-20.0.0.jar"
+        jar="/Applications/Android-sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
         jumboMode="false"
         revision="21.1.1"
         sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
-        <dex dex="C:\Users\tes\Documents\GitHub\axtravaganza\FromStartingCode\testLocation\build\intermediates\pre-dexed\debug\support-annotations-20.0.0-927356a52a3d97762b390799bd5264826a9ca28d.jar" />
+        <dex dex="/Users/JiaHao/Dropbox/Projects/Android/1dTravel/axtravaganza/FromStartingCode/testLocation/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bf464df2da6f272993c6d797cb30d272add0119c.jar" />
     </item>
 
 </items>
